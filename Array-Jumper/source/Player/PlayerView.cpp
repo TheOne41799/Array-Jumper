@@ -1,4 +1,6 @@
 #include "../../header/Player/PlayerView.h"
+#include "../../header/Player/PlayerController.h"
+#include "../../header/Player/PlayerModel.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
 
@@ -10,8 +12,9 @@ namespace Player
 
 
 
-	PlayerView::PlayerView(PlayerController* playerController)
+	PlayerView::PlayerView(PlayerController* controller)
 	{
+		playerController = controller;
 		gameWindow = nullptr;
 		playerImage = new ImageView();
 	}
@@ -35,7 +38,12 @@ namespace Player
 
 	void PlayerView::Render()
 	{
-		DrawPlayer();
+		switch (playerController->GetPlayerState())
+		{
+		case PlayerState::ALIVE:
+			DrawPlayer();
+			break;
+		}		
 	}
 
 

@@ -5,12 +5,16 @@
 namespace Player
 {
 	class PlayerController;
+	//enum class PlayerState;
+
 
 	class PlayerView
 	{
 	private:
 		UI::UIElement::ImageView* playerImage;
 		sf::RenderWindow* gameWindow;
+
+		PlayerController* playerController;
 
 		float playerWidth;
 		float playerHeight;
@@ -23,7 +27,7 @@ namespace Player
 		sf::Vector2f CalculatePlayerPosition();
 
 	public:
-		PlayerView(PlayerController* playerController);
+		PlayerView(PlayerController* controller);
 		~PlayerView();
 
 		void Initialize();
