@@ -1,120 +1,88 @@
 #include "../../header/Player/PlayerController.h"
-#include "../../header/Player/PlayerModel.h"
 #include "../../header/Player/PlayerView.h"
-#include "../../header/Level/LevelModel.h"
+#include "../../header/Player/PlayerModel.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Level/LevelModel.h"
 #include "../../header/Sound/SoundService.h"
+
 
 
 namespace Player
 {
+	using namespace Global;
 	using namespace Event;
 	using namespace Level;
-	using namespace Global;
 	using namespace Sound;
-
 
 	PlayerController::PlayerController()
 	{
-		playerModel = new PlayerModel();
-		playerView = new PlayerView(this);
+		player_model = new PlayerModel();
+		player_view = new PlayerView(this);
 	}
 
+	PlayerController::~PlayerController() { destroy(); }
 
-	PlayerController::~PlayerController()
+	void PlayerController::initialize()
 	{
-		Destroy();
-	}
-
-
-	void PlayerController::Initialize()
-	{
-		playerModel->initialize();
-		playerView->initialize();
+		player_model->initialize();
+		player_view->initialize();
 
 		event_service = ServiceLocator::getInstance()->getEventService();
+
 		resetPlayer();
 	}
 
-
-	void PlayerController::Update()
+	void PlayerController::update()
 	{
-		playerView->update();
+		player_view->update();
 		readInput();
 	}
 
-
-	void PlayerController::Render()
+	void PlayerController::render()
 	{
-		playerView->render();
+		player_view->render();
 	}
 
-
-	void PlayerController::Destroy()
+	PlayerState PlayerController::getPlayerState()
 	{
-		delete(playerModel);
-		delete(playerView);
+		return player_model->getPlayerState();
 	}
 
-
-	PlayerState PlayerController::GetPlayerState()
+	void PlayerController::setPlayerState(PlayerState new_player_state)
 	{
-		return playerModel->GetPlayerState();
+		player_model->setPlayerState(new_player_state);
 	}
-
-
-	void PlayerController::SetPlayerState(PlayerState state)
-	{
-		playerModel->SetPlayerState(state);
-	}
-
 
 	int PlayerController::getCurrentPosition()
 	{
-		return playerModel->GetCurrentPosition();
+		return player_model->getCurrentPosition();
 	}
 
+	int PlayerController::getCurrentLives()
+	{
+		return player_model->getCurrentLives();
+	}
+
+	void PlayerController::takeDamage()
+	{
+		player_model->decreamentLife();
+		if (player_model->getCurrentLives() <= 0)
+			onDeath();
+		else
+			player_model->resetPosition();
+	}
+
+
+	void PlayerController::destroy()
+	{
+		delete(player_model);
+		delete(player_view);
+	}
 
 	void PlayerController::resetPlayer()
 	{
-		playerModel->SetCurrentPosition(0);
-		playerModel->SetPlayerState(PlayerState::ALIVE);
+		player_model->resetPlayer();
 	}
-
-
-	void PlayerController::move(MovementDirection direction)
-	{
-		int steps, targetPosition;
-		switch (direction)
-		{
-		case MovementDirection::FORWARD:
-			steps = 1;
-			break;
-		case MovementDirection::BACKWARD:
-			steps = -1;
-			break;
-		default:
-			steps = 0;
-			break;
-		}
-
-		targetPosition = playerModel->GetCurrentPosition() + steps;
-
-		if (!isPositionInBound(targetPosition))
-			return;
-
-		playerModel->SetCurrentPosition(targetPosition);
-		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::MOVE);
-	}
-
-
-	bool PlayerController::isPositionInBound(int targetPosition)
-	{
-		if (targetPosition >= 0 && targetPosition < LevelData::NUMBER_OF_BOXES)
-			return true;
-		return false;
-	}
-
 
 	void PlayerController::readInput()
 	{
@@ -132,13 +100,39 @@ namespace Player
 			else
 				move(MovementDirection::BACKWARD);
 		}
+
 	}
 
+	void PlayerController::move(MovementDirection direction)
+	{
+		int steps, targetPosition;
+		switch (direction)
+		{
+		case MovementDirection::FORWARD:
+			steps = 1;
+			break;
+		case MovementDirection::BACKWARD:
+			steps = -1;
+			break;
+		default:
+			steps = 0;
+			break;
+		}
+
+		targetPosition = player_model->getCurrentPosition() + steps;
+
+		if (!isPositionInBound(targetPosition))
+			return;
+
+		player_model->setCurrentPosition(targetPosition);
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::MOVE);
+		ServiceLocator::getInstance()->getGameplayService()->onPositionChanged(targetPosition);
+	}
 
 	void PlayerController::jump(MovementDirection direction)
 	{
-		int current_position = playerModel->GetCurrentPosition();
-		BlockType box_value = ServiceLocator::getInstance()->GetLevelService()->getCurrentBoxValue(current_position);
+		int current_position = player_model->getCurrentPosition();
+		BlockType box_value = ServiceLocator::getInstance()->getLevelService()->getCurrentBoxValue(current_position);
 		int steps, targetPosition;
 
 		switch (direction)
@@ -159,16 +153,21 @@ namespace Player
 		if (!isPositionInBound(targetPosition))
 			return;
 
-		playerModel->SetCurrentPosition(targetPosition);
+		player_model->setCurrentPosition(targetPosition);
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::JUMP);
+		ServiceLocator::getInstance()->getGameplayService()->onPositionChanged(targetPosition);
+	}
+
+	bool PlayerController::isPositionInBound(int targetPosition)
+	{
+		if (targetPosition >= 0 && targetPosition < LevelData::NUMBER_OF_BOXES)
+			return true;
+		return false;
+	}
+
+	void PlayerController::onDeath()
+	{
+		ServiceLocator::getInstance()->getGameplayService()->onDeath();
+		player_model->resetPlayer();
 	}
 }
-
-
-
-
-
-
-
-
-

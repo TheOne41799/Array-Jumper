@@ -27,10 +27,3 @@ namespace Level
 		BlockType getCurrentBoxValue(int currentPosition);
 	};
 }
-
-
-
-
-
-
-

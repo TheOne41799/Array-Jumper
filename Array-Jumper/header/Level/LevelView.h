@@ -3,7 +3,6 @@
 #include "LevelController.h"
 #include "../../header/UI/UIElement/ImageView.h"
 
-
 namespace Level
 {
 	class LevelView
@@ -51,15 +50,3 @@ namespace Level
 
 	};
 }
-
-
-
-
-
-
-
-
-
-
-
-

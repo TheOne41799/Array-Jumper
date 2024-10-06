@@ -2,53 +2,43 @@
 #include "../../header/Event/EventService.h"
 #include "MovementDirection.h"
 
-
 namespace Player
 {
-	class PlayerModel;
 	class PlayerView;
+	class PlayerModel;
 	enum class PlayerState;
-
 
 	class PlayerController
 	{
 	private:
-		PlayerModel* playerModel;
-		PlayerView* playerView;
+		PlayerModel* player_model;
+		PlayerView* player_view;
 
 		Event::EventService* event_service;
 
-		void Destroy();
-		void resetPlayer();
-
-		void move(MovementDirection direction);
-		bool isPositionInBound(int targetPosition);
+		void destroy();
 
 		void readInput();
-
+		void move(MovementDirection direction);
 		void jump(MovementDirection direction);
+		bool isPositionInBound(int targetPosition);
+		void onDeath();
 
 	public:
 		PlayerController();
 		~PlayerController();
 
-		void Initialize();
-		void Update();
-		void Render();
+		void initialize();
+		void update();
+		void render();
 
-		PlayerState GetPlayerState();
-		void SetPlayerState(PlayerState state);
+		PlayerState getPlayerState();
+		void setPlayerState(PlayerState new_player_state);
 
 		int getCurrentPosition();
+		int getCurrentLives();
+
+		void resetPlayer();
+		void takeDamage();
 	};
 }
-
-
-
-
-
-
-
-
-
-

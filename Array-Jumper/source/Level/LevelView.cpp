@@ -40,7 +40,7 @@ namespace Level
 	}
 
 	BoxDimensions LevelView::getBoxDimensions()
-	{		
+	{
 		return box_dimensions;
 	}
 
@@ -89,7 +89,7 @@ namespace Level
 	{
 		background_image->render();
 
-		for (int i = 0; i < LevelData::NUMBER_OF_BOXES; i++)
+		for (int i = 0; i < LevelData::NUMBER_OF_BOXES; ++i)
 		{
 			sf::Vector2f position = calculateBoxPosition(i);
 			BlockType blockTypeToDraw = level_controller->getCurrentBoxValue(i);
@@ -129,9 +129,12 @@ namespace Level
 		float screenWidth = static_cast<float>(game_window->getSize().x);
 		int numBoxes = LevelData::NUMBER_OF_BOXES;
 
+
 		int numGaps = numBoxes + 1;
 
+
 		float totalSpaceByGaps = box_dimensions.box_spacing_percentage * static_cast<float>(numGaps);
+
 
 		float totalSpace = numBoxes + totalSpaceByGaps;
 
@@ -189,5 +192,3 @@ namespace Level
 	}
 
 }
-
-
