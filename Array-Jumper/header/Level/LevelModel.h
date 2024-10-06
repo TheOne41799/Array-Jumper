@@ -1,9 +1,9 @@
 #pragma once
 #include "LevelData.h"
 
-
 namespace Level
 {
+
 	struct BoxDimensions
 	{
 		float box_width;
@@ -27,3 +27,10 @@ namespace Level
 		BlockType getCurrentBoxValue(int currentPosition);
 	};
 }
+
+
+
+
+
+
+

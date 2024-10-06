@@ -1,18 +1,16 @@
 #pragma once
 #include "LevelModel.h"
 
-
 namespace Level
 {
-	class LevelModel;
 	class LevelView;
-
+	class LevelModel;
 
 	class LevelController
 	{
 	private:
-		LevelModel* level_model;
 		LevelView* level_view;
+		LevelModel* level_model;
 
 	public:
 		LevelController();
@@ -22,6 +20,7 @@ namespace Level
 		void update();
 		void render();
 
+		BoxDimensions getBoxDimensions();
 		BlockType getCurrentBoxValue(int currentPosition);
 	};
 }
