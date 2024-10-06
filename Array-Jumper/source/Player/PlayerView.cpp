@@ -60,11 +60,11 @@ namespace Player
 	void PlayerView::calculatePlayerDimensions()
 	{
 		current_box_dimensions = ServiceLocator::getInstance()->GetLevelService()->getBoxDimensions();
-		player_height = current_box_dimensions.box_height;
-		player_width = current_box_dimensions.box_width;
+		/*player_height = current_box_dimensions.box_height;
+		player_width = current_box_dimensions.box_width;*/
 
-		
-
+		player_height = 150;
+		player_width = 150;
 	}
 
 	void PlayerView::updatePlayerPosition()
