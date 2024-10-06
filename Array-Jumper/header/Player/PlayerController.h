@@ -26,6 +26,8 @@ namespace Player
 
 		void readInput();
 
+		void jump(MovementDirection direction);
+
 	public:
 		PlayerController();
 		~PlayerController();
