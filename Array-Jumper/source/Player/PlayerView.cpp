@@ -1,96 +1,3 @@
-//#include "../../header/Player/PlayerView.h"
-//#include "../../header/Player/PlayerController.h"
-//#include "../../header/Player/PlayerModel.h"
-//#include "../../header/Global/Config.h"
-//#include "../../header/Global/ServiceLocator.h"
-//
-//
-//namespace Player
-//{
-//	using namespace UI::UIElement;
-//	using namespace Global;
-//
-//
-//
-//	PlayerView::PlayerView(PlayerController* controller)
-//	{
-//		playerController = controller;
-//		gameWindow = nullptr;
-//		playerImage = new ImageView();
-//	}
-//
-//
-//	PlayerView::~PlayerView(){}
-//
-//
-//	void PlayerView::Initialize()
-//	{
-//		gameWindow = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-//		LoadPlayer();
-//	}
-//
-//
-//	void PlayerView::Update()
-//	{
-//		UpdatePlayerPosition();
-//	}
-//
-//
-//	void PlayerView::Render()
-//	{
-//		switch (playerController->GetPlayerState())
-//		{
-//		case PlayerState::ALIVE:
-//			DrawPlayer();
-//			break;
-//		}		
-//	}
-//
-//
-//	void PlayerView::CalculatePlayerDimensions()
-//	{
-//		current_box_dimensions = ServiceLocator::getInstance()->GetLevelService()->getBoxDimensions();
-//		playerHeight = current_box_dimensions.box_height;
-//		playerWidth = current_box_dimensions.box_width;
-//	}
-//
-//
-//	void PlayerView::InitializePlayerImage()
-//	{
-//		playerImage->initialize(Config::character_texture_path, playerWidth, playerHeight, sf::Vector2f(0, 0));
-//	}
-//
-//
-//	void PlayerView::LoadPlayer()
-//	{
-//		CalculatePlayerDimensions();
-//		InitializePlayerImage();
-//	}
-//
-//
-//	sf::Vector2f PlayerView::CalculatePlayerPosition()
-//	{
-//		float xPosition = current_box_dimensions.box_spacing + static_cast<float>(playerController->getCurrentPosition()) * (current_box_dimensions.box_width + current_box_dimensions.box_spacing);
-//		float yPosition = static_cast<float>(gameWindow->getSize().y) - current_box_dimensions.box_height - current_box_dimensions.bottom_offset - playerHeight;
-//		return sf::Vector2f(xPosition, yPosition);
-//	}
-//
-//
-//	void PlayerView::UpdatePlayerPosition()
-//	{
-//		playerImage->setPosition(CalculatePlayerPosition());
-//		
-//	}
-//
-//
-//	void PlayerView::DrawPlayer()
-//	{
-//		playerImage->render();
-//	}
-//}
-
-
-
 #include "../../header/Player/PlayerView.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
@@ -167,11 +74,6 @@ namespace Player
 		float xPosition = current_box_dimensions.box_spacing + static_cast<float>(player_controller->getCurrentPosition()) * (current_box_dimensions.box_width + current_box_dimensions.box_spacing);
 		float yPosition = static_cast<float>(game_window->getSize().y) - current_box_dimensions.box_height - current_box_dimensions.bottom_offset - player_height;
 		return sf::Vector2f(xPosition, yPosition);
-
-
-		/*float xPosition = current_box_dimensions.box_spacing + static_cast<float>(player_controller->getCurrentPosition()) * (current_box_dimensions.box_width + current_box_dimensions.box_spacing);
-		float yPosition = static_cast<float>(game_window->getSize().y) - current_box_dimensions.box_height - current_box_dimensions.bottom_offset - player_height;
-		return sf::Vector2f(xPosition, yPosition);*/
 	}
 
 
