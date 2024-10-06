@@ -3,6 +3,7 @@
 #include "../../header/Level/LevelData.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Global/Config.h"
+#include <iostream>
 
 namespace Level
 {
@@ -40,7 +41,7 @@ namespace Level
 	}
 
 	BoxDimensions LevelView::getBoxDimensions()
-	{
+	{		
 		return box_dimensions;
 	}
 
@@ -137,6 +138,8 @@ namespace Level
 
 		box_dimensions.box_width = screenWidth / (totalSpace);
 		box_dimensions.box_height = box_dimensions.box_width;
+
+		std::cout << box_dimensions.box_width << std::endl;
 	}
 
 	void LevelView::calculateBoxSpacing()
@@ -189,3 +192,5 @@ namespace Level
 	}
 
 }
+
+
