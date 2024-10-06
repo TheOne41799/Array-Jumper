@@ -17,6 +17,8 @@ namespace Player
 		PlayerState playerState;
 
 	public:
+		void initialize();
+
 		PlayerState GetPlayerState();
 		void SetPlayerState(PlayerState state);
 
