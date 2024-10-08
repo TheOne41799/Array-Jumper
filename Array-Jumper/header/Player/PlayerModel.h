@@ -9,20 +9,28 @@ namespace Player
 		DEAD
 	};
 
-
 	class PlayerModel
 	{
 	private:
-		int currentPosition;
-		PlayerState playerState;
+
+		const int max_lives = 3;
+
+		PlayerState player_state;
+		int current_position;
+		int current_lives;
 
 	public:
+
 		void initialize();
 
-		PlayerState GetPlayerState();
-		void SetPlayerState(PlayerState state);
+		PlayerState getPlayerState();
+		void setPlayerState(PlayerState new_player_state);
 
-		int GetCurrentPosition();
-		void SetCurrentPosition(int position);
+		void resetPlayer();
+		void resetPosition();
+		int getCurrentPosition();
+		void setCurrentPosition(int new_position);
+		void decreamentLife();
+		int getCurrentLives();
 	};
 }

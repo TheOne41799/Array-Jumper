@@ -4,49 +4,37 @@
 
 namespace Player
 {
-	PlayerService::PlayerService()
+	PlayerService::PlayerService() { player_controller = new PlayerController(); }
+
+	PlayerService::~PlayerService() { destroy(); }
+
+	void PlayerService::initialize()
 	{
-		playerController = new PlayerController();
+		player_controller->initialize();
 	}
 
-
-	PlayerService::~PlayerService()
+	void PlayerService::update()
 	{
-		Destroy();
+		player_controller->update();
 	}
 
-
-	void PlayerService::Initialize()
+	void PlayerService::render()
 	{
-		playerController->Initialize();
+		player_controller->render();
 	}
 
-
-	void PlayerService::Update()
+	int PlayerService::getCurrentLives()
 	{
-		playerController->Update();
+		return player_controller->getCurrentLives();
 	}
 
-
-	void PlayerService::Render()
+	void PlayerService::takeDamage()
 	{
-		playerController->Render();
+		player_controller->takeDamage();
 	}
 
+	void PlayerService::levelComplete() { player_controller->resetPlayer(); }
 
-	void PlayerService::Destroy()
-	{
-		delete(playerController);
-	}
+
+	void PlayerService::destroy() { delete(player_controller); }
 }
-
-
-
-
-
-
-
-
-
-
-

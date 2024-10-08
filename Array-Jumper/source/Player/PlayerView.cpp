@@ -34,7 +34,7 @@ namespace Player
 
 	void PlayerView::render()
 	{
-		switch (player_controller->GetPlayerState())
+		switch (player_controller->getPlayerState())
 		{
 		case PlayerState::ALIVE:
 			drawPlayer();
@@ -59,12 +59,9 @@ namespace Player
 
 	void PlayerView::calculatePlayerDimensions()
 	{
-		current_box_dimensions = ServiceLocator::getInstance()->GetLevelService()->getBoxDimensions();
+		current_box_dimensions = ServiceLocator::getInstance()->getLevelService()->getBoxDimensions();
 		player_height = current_box_dimensions.box_height;
 		player_width = current_box_dimensions.box_width;
-
-		
-
 	}
 
 	void PlayerView::updatePlayerPosition()

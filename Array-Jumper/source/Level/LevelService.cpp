@@ -40,11 +40,3 @@ namespace Level
 		delete(level_controller);
 	}
 }
-
-
-
-
-
-
-
-

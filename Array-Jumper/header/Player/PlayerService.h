@@ -1,31 +1,25 @@
 #pragma once
 
-
 namespace Player
 {
 	class PlayerController;
-
 	class PlayerService
 	{
 	private:
-		PlayerController* playerController;
+		PlayerController* player_controller;
 
-		void Destroy();
+		void destroy();
 
 	public:
 		PlayerService();
 		~PlayerService();
 
-		void Initialize();
-		void Update();
-		void Render();
+		void initialize();
+		void update();
+		void render();
+
+		int getCurrentLives();
+		void takeDamage();
+		void levelComplete();
 	};
 }
-
-
-
-
-
-
-
-

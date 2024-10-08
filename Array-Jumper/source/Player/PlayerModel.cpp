@@ -1,46 +1,36 @@
 #include "../../header/Player/PlayerModel.h"
 
-
 namespace Player
 {
 	void Player::PlayerModel::initialize()
 	{
+		
 	}
 
-
-	PlayerState PlayerModel::GetPlayerState()
+	PlayerState PlayerModel::getPlayerState()
 	{
-		return playerState;
+		return player_state;
 	}
 
-
-	void PlayerModel::SetPlayerState(PlayerState state)
+	void PlayerModel::setPlayerState(PlayerState new_player_state)
 	{
-		playerState = state;
+		player_state = new_player_state;
 	}
 
-
-	int PlayerModel::GetCurrentPosition()
+	void PlayerModel::resetPlayer()
 	{
-		return currentPosition;
+		current_position = 0;
+		player_state = PlayerState::ALIVE;
+		current_lives = max_lives;
 	}
 
-
-	void PlayerModel::SetCurrentPosition(int position)
+	void PlayerModel::resetPosition()
 	{
-		currentPosition = position;
+		current_position = 0;
 	}
+
+	int PlayerModel::getCurrentPosition() { return current_position; }
+	void PlayerModel::setCurrentPosition(int new_position) { current_position = new_position; }
+	void PlayerModel::decreamentLife() { current_lives--; }
+	int PlayerModel::getCurrentLives() { return current_lives; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
