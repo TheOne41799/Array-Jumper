@@ -1,8 +1,6 @@
 #include "../../header/Level/LevelController.h"
 #include "../../header/Level/LevelView.h"
 #include "../../header/Level/LevelModel.h"
-#include "../../header/Level/LevelData.h"
-#include "../../header/Main/GameService.h"
 
 namespace Level
 {
@@ -29,15 +27,28 @@ namespace Level
 	{
 		level_view->render();
 	}
-
-	BoxDimensions LevelController::getBoxDimensions()
-	{
-		return level_view->getBoxDimensions();
-	}
-
 	BlockType LevelController::getCurrentBoxValue(int currentPosition)
 	{
 		return level_model->getCurrentBoxValue(currentPosition);
 	}
-
+	BoxDimensions LevelController::getBoxDimensions()
+	{
+		return level_view->getBoxDimensions();
+	}
+	bool LevelController::isLastLevel()
+	{
+		return level_model->isLastLevel();
+	}
+	void LevelController::loadNextLevel()
+	{
+		level_model->loadNextLevel();
+	}
+	int LevelController::getCurrentLevelNumber()
+	{
+		return level_model->getCurrentLevelNumber();;
+	}
+	void LevelController::reset()
+	{
+		level_model->reset();
+	}
 }

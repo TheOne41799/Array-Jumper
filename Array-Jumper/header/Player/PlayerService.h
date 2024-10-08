@@ -1,7 +1,5 @@
-#pragma once
-
-namespace Player
-{
+#pragma 
+namespace Player {
 	class PlayerController;
 	class PlayerService
 	{
@@ -10,6 +8,8 @@ namespace Player
 
 		void destroy();
 
+
+
 	public:
 		PlayerService();
 		~PlayerService();
@@ -17,9 +17,8 @@ namespace Player
 		void initialize();
 		void update();
 		void render();
-
-		int getCurrentLives();
 		void takeDamage();
 		void levelComplete();
+		int getCurrentLives();
 	};
 }

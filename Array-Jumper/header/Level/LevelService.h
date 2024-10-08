@@ -1,7 +1,5 @@
 #pragma once
-#include "BlockType.h"
-
-
+#include "../../header//Level/BlockType.h"
 namespace Level
 {
 	class LevelController;
@@ -10,18 +8,26 @@ namespace Level
 	class LevelService
 	{
 	private:
-		LevelController* level_controller;
 
+		LevelController* level_controller;
 		void destroy();
+
 	public:
 		LevelService();
 		~LevelService();
 
-		void intialize();
+		void initialize();
 		void update();
 		void render();
 
 		BoxDimensions getBoxDimensions();
 		BlockType getCurrentBoxValue(int currentPosition);
+
+		bool isLastLevel();
+		void loadNextLevel();
+		int getCurrentLevelNumber();
+		void reset();
+
+
 	};
 }

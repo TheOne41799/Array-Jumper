@@ -1,5 +1,8 @@
-#include "../../header/Level/LevelService.h"
+
 #include "../../header/Level/LevelController.h"
+#include "../../header/Level/LevelService.h"
+
+
 
 namespace Level
 {
@@ -10,7 +13,8 @@ namespace Level
 
 	LevelService::~LevelService() { destroy(); }
 
-	void LevelService::intialize()
+
+	void LevelService::initialize()
 	{
 		level_controller->initialize();
 	}
@@ -25,8 +29,7 @@ namespace Level
 		level_controller->render();
 	}
 
-	BoxDimensions LevelService::getBoxDimensions()
-	{
+	BoxDimensions LevelService::getBoxDimensions() {
 		return level_controller->getBoxDimensions();
 	}
 
@@ -34,6 +37,27 @@ namespace Level
 	{
 		return level_controller->getCurrentBoxValue(currentPosition);
 	}
+
+	bool LevelService::isLastLevel()
+	{
+		return level_controller->isLastLevel();
+	}
+
+	void LevelService::loadNextLevel()
+	{
+		level_controller->loadNextLevel();
+	}
+
+	int LevelService::getCurrentLevelNumber()
+	{
+		return level_controller->getCurrentLevelNumber();
+	}
+
+	void LevelService::reset()
+	{
+		level_controller->reset();
+	}
+
 
 	void LevelService::destroy()
 	{

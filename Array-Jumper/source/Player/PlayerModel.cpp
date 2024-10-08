@@ -1,36 +1,53 @@
 #include "../../header/Player/PlayerModel.h"
+#include "../../header/Level/BlockType.h"
 
-namespace Player
-{
-	void Player::PlayerModel::initialize()
+namespace Player {
+	PlayerModel::PlayerModel()
 	{
-		
 	}
-
+	PlayerModel::~PlayerModel()
+	{
+	}
+	void PlayerModel::initialize()
+	{
+	}
+	void PlayerModel::update()
+	{
+	}
+	int PlayerModel::getCurrentPosition()
+	{
+		return current_position;
+	}
+	void PlayerModel::setCurrentPosition(int position)
+	{
+		current_position = position;
+	}
 	PlayerState PlayerModel::getPlayerState()
 	{
 		return player_state;
 	}
-
-	void PlayerModel::setPlayerState(PlayerState new_player_state)
+	void PlayerModel::setPlayerState(PlayerState state)
 	{
-		player_state = new_player_state;
+		player_state = state;
+	}
+
+	int PlayerModel::getCurrentLives()
+	{
+		return current_lives;
 	}
 
 	void PlayerModel::resetPlayer()
 	{
+		current_lives = max_lives;
 		current_position = 0;
 		player_state = PlayerState::ALIVE;
-		current_lives = max_lives;
 	}
 
-	void PlayerModel::resetPosition()
-	{
+	void PlayerModel::resetCurrentPosition() {
 		current_position = 0;
 	}
 
-	int PlayerModel::getCurrentPosition() { return current_position; }
-	void PlayerModel::setCurrentPosition(int new_position) { current_position = new_position; }
-	void PlayerModel::decreamentLife() { current_lives--; }
-	int PlayerModel::getCurrentLives() { return current_lives; }
+	void PlayerModel::decrementLife() { current_lives--; }
+
+
 }
