@@ -1,4 +1,5 @@
 #include "../../header/Level/LevelModel.h"
+#include "../../header/Level/LevelConfiguration.h"
 
 namespace Level
 {
@@ -10,6 +11,13 @@ namespace Level
 		return level_configuration.levels[current_level_index].level_boxes[currentPosition];
 	}
 
+	bool LevelModel::isLastLevel()
+	{
+		if (current_level_index == LevelConfiguration::NUMBER_OF_LEVELS - 1)
+			return true;
+		return false;
+	}
+
 	void LevelModel::loadNextLevel()
 	{
 		current_level_index++;
@@ -18,13 +26,6 @@ namespace Level
 	int LevelModel::getCurrentLevelNumber()
 	{
 		return current_level_index + 1;
-	}
-
-	bool LevelModel::isLastLevel()
-	{
-		if (current_level_index == LevelConfiguration::NUMBER_OF_LEVELS - 1)
-			return true;
-		return false;
 	}
 
 	void LevelModel::reset()
