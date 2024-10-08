@@ -1,38 +1,22 @@
 #include "../../header/Gameplay/GameplayController.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Level/LevelData.h"
-#include "../../header/Sound/SoundService.h"
+#include "../../header/Level/BlockType.h"
 #include "../../header/Main/GameService.h"
 
-namespace Gameplay
-{
+namespace Gameplay {
+
 	using namespace Global;
 	using namespace Level;
-	using namespace Sound;
-	using namespace Main;
-
-	void GameplayController::intialize() { }
-
-	void GameplayController::update() { }
-
-	void GameplayController::render() { }
-
-	void GameplayController::onPositionChanged(int position)
+	GameplayController::GameplayController()
 	{
-		BlockType value = ServiceLocator::getInstance()->getLevelService()->getCurrentBoxValue(position);
-
-		if (isObstacle(value))
-			processObstacle();
-		if (isEndBlock(value))
-			processEndBlock();
 	}
-
-	void GameplayController::onDeath()
+	GameplayController::~GameplayController()
 	{
-		gameOver();
 	}
-
-	bool GameplayController::isObstacle(Level::BlockType value)
+	void GameplayController::initialize()
+	{
+	}
+	bool GameplayController::isObstacle(BlockType value)
 	{
 		if (value == BlockType::OBSTACLE_ONE || value == BlockType::OBSTACLE_TWO)
 			return true;
@@ -46,16 +30,10 @@ namespace Gameplay
 		return false;
 	}
 
-	void GameplayController::processObstacle()
-	{
-		ServiceLocator::getInstance()->getPlayerService()->takeDamage();
-		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
-	}
-
 	void GameplayController::processEndBlock()
 	{
 		ServiceLocator::getInstance()->getPlayerService()->levelComplete();
-		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::LEVEL_COMPLETE);
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::LEVEL_COMPLETE);
 
 
 		if (isLastLevel())
@@ -72,18 +50,11 @@ namespace Gameplay
 		return ServiceLocator::getInstance()->getLevelService()->isLastLevel();
 	}
 
-	/*void GameplayController::startGame()
-	{
-		GameService::setGameState(GameState::GAMEPLAY);
-		return ServiceLocator::getInstance()->getLevelService()->resetLevels();
-		return ServiceLocator::getInstance()->getPlayerService()->resetPlayer();
-
-	}*/
-
 	void GameplayController::gameWon()
 	{
-		GameService::setGameState(GameState::CREDITS);
-		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::GAME_WON);
+		Main::GameService::setGameState(Main::GameState::CREDITS);
+		ServiceLocator::getInstance()->getLevelService()->reset();
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
 	}
 
 	void GameplayController::loadNextLevel()
@@ -91,10 +62,32 @@ namespace Gameplay
 		ServiceLocator::getInstance()->getLevelService()->loadNextLevel();
 	}
 
+	void GameplayController::processObstacle()
+	{
+		ServiceLocator::getInstance()->getPlayerService()->takeDamage();
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::DEATH);
+	}
+
+	void GameplayController::onPositionChanged(int position)
+	{
+		BlockType value = ServiceLocator::getInstance()->getLevelService()->getCurrentBoxValue(position);
+
+		if (isObstacle(value))
+			processObstacle();
+
+		if (isEndBlock(value))
+			processEndBlock();
+	}
+
+	void GameplayController::onDeath()
+	{
+		gameOver();
+	}
 
 	void GameplayController::gameOver()
 	{
-		GameService::setGameState(GameState::CREDITS);
-		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+		Main::GameService::setGameState(Main::GameState::CREDITS);
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::DEATH);
 	}
+
 }
