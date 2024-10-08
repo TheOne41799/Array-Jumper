@@ -39,4 +39,24 @@ namespace Level
 	{
 		delete(level_controller);
 	}
+
+	bool LevelService::isLastLevel()
+	{
+		return level_controller->isLastLevel();
+	}
+
+	void LevelService::loadNextLevel()
+	{
+		level_controller->loadNextLevel();
+	}
+
+	int LevelService::getCurrentLevelNumber()
+	{
+		return level_controller->getCurrentLevelNumber();
+	}
+
+	void LevelService::resetLevels()
+	{
+		level_controller->reset();
+	}
 }

@@ -8,7 +8,9 @@ namespace Level
     {
         static const int NUMBER_OF_BOXES = 10;
 
-        BlockType level_boxes[NUMBER_OF_BOXES] = {
+        BlockType level_boxes[NUMBER_OF_BOXES];
+
+        /*BlockType level_boxes[NUMBER_OF_BOXES] = {
             BlockType::ONE,
             BlockType::TWO,
             BlockType::OBSTACLE_ONE,
@@ -18,7 +20,7 @@ namespace Level
             BlockType::OBSTACLE_TWO,
             BlockType::TWO,
             BlockType::ONE,
-            BlockType::TARGET };
+            BlockType::TARGET };*/
     };
 }
 
